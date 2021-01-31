@@ -1,5 +1,6 @@
-import React from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { searchedData } from "../actions/weatherData";
 
 // Import Styled
 import styled from "styled-components";
@@ -7,24 +8,17 @@ import styled from "styled-components";
 //Import Image
 import iconImg from "../images/icon.png";
 
-const Nav = ({ searchCity, setSearchCity, setDataWeather }) => {
+const Nav = () => {
+  const dispatch = useDispatch();
+  const [searchCity, setSearchCity] = useState("");
   const inputHandler = (e) => {
     setSearchCity(e.target.value);
   };
 
   const searchHandler = (e) => {
-    const fetchData = async () => {
-      try {
-        const results = await axios.get(
-          `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API}&q=${searchCity}&days=3`
-        );
-        setDataWeather(results.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
+    dispatch(searchedData(searchCity));
     e.preventDefault();
+    setSearchCity("");
   };
 
   return (
@@ -34,7 +28,7 @@ const Nav = ({ searchCity, setSearchCity, setDataWeather }) => {
         <h1>Weather App</h1>
       </Logo>
       <form className="search">
-        <input type="text" onChange={inputHandler} />
+        <input value={searchCity} type="text" onChange={inputHandler} />
         <button onClick={searchHandler} type="submit">
           Search
         </button>
@@ -45,12 +39,12 @@ const Nav = ({ searchCity, setSearchCity, setDataWeather }) => {
 
 const StyledNav = styled.nav`
   display: flex;
-  margin: 2rem 5rem;
+  margin: 2rem 4rem;
   padding: 2rem 0rem;
   min-height: 10vh;
-  width: 80%;
+  width: 90%;
   align-items: center;
-  justify-content: space-between;
+
   .search {
     display: flex;
     width: 30%;
@@ -60,7 +54,6 @@ const StyledNav = styled.nav`
       border: none;
       padding: 0.3rem;
       font-size: 1.5rem;
-      width: 50%;
     }
     button {
       border: none;
@@ -80,7 +73,6 @@ const StyledNav = styled.nav`
 const Logo = styled.nav`
   display: flex;
   img {
-    /* margin-right: auto; */
     width: 10%;
   }
 `;

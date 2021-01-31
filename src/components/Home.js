@@ -1,5 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Card from "./Card";
+
+// Import Animation
+import { motion } from "framer-motion";
 
 // Import State
 import { useSelector } from "react-redux";
@@ -9,39 +12,34 @@ import styled from "styled-components";
 
 const Home = () => {
   const { forecastWeather } = useSelector((state) => state.forecastWeather);
-
+  // console.log(forecastWeather);
   return (
-    <HomeStyle>
-      <h1>Weather in {forecastWeather ? forecastWeather.location.name : ""}</h1>
-      <h2 className="country">
+    <>
+      <h2>
+        Weather in {forecastWeather ? forecastWeather.location.name : ""}
+        {", "}
         {forecastWeather ? forecastWeather.location.country : ""}
       </h2>
-      {forecastWeather &&
-        forecastWeather.forecast.forecastday.map((state) => (
-          <Card
-            key={state.date_epoch}
-            date={state.date}
-            min={state.day.mintemp_c}
-            max={state.day.maxtemp_c}
-            icon={forecastWeather.current.condition.icon}
-          />
-        ))}
-    </HomeStyle>
+      <HomeStyle>
+        {forecastWeather &&
+          forecastWeather.forecast.forecastday.map((state) => (
+            <Card
+              key={state.date_epoch}
+              date={state.date}
+              min={state.day.mintemp_c}
+              max={state.day.maxtemp_c}
+              hours={state.hour}
+              icon={forecastWeather.current.condition.icon}
+            />
+          ))}
+      </HomeStyle>
+    </>
   );
 };
 
-const HomeStyle = styled.div`
-  display: flex;
-  h1 {
-    width: 100%;
-  }
-  .country {
-    position: relative;
-    top: 20rem;
-    right: 19.5rem;
-    color: black;
-    font-size: 3rem;
-  }
+const HomeStyle = styled(motion.div)`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 `;
 
 export default Home;

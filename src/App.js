@@ -1,8 +1,8 @@
-import { React, useState, useEffect } from "react";
+import { React, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 // Import Actions
-import weatherData from "./actions/weatherData";
+import { weatherData } from "./actions/weatherData";
 
 import Home from "./components/Home";
 import Nav from "./components/Nav";
@@ -13,9 +13,6 @@ import GlobalStyles from "./components/GlobalStyle";
 function App() {
   const dispatch = useDispatch();
 
-  const [dataWeather, setDataWeather] = useState("");
-  const [searchCity, setSearchCity] = useState("");
-
   useEffect(() => {
     dispatch(weatherData());
   }, [dispatch]);
@@ -23,11 +20,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Nav
-        searchCity={searchCity}
-        setSearchCity={setSearchCity}
-        setDataWeather={setDataWeather}
-      />
+      <Nav />
       <Home />
     </>
   );

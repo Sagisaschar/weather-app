@@ -12,12 +12,17 @@ body {
 }
 h1{
     font-size: 4rem;
-    padding: 2rem 5rem;
+    padding: 3rem 5rem;
+    justify-content: center;
     font-weight: 400;
     color: #333;
 }
 h2{
-    color: #e8e8e8;
+
+    padding: 1rem 5rem;
+    margin: 4rem 0rem;
+    color: black;
+    font-size: 3rem;
 }
 p{
     color: white;
