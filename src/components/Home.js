@@ -1,6 +1,8 @@
 import React from "react";
 import Card from "./Card";
 
+import DetailsHours from "./DetailsHours";
+
 // Import Animation
 import { motion } from "framer-motion";
 
@@ -12,7 +14,6 @@ import styled from "styled-components";
 
 const Home = () => {
   const { forecastWeather } = useSelector((state) => state.forecastWeather);
-  // console.log(forecastWeather);
   return (
     <>
       <h2>
@@ -21,6 +22,7 @@ const Home = () => {
         {forecastWeather ? forecastWeather.location.country : ""}
       </h2>
       <HomeStyle>
+        <DetailsHours />
         {forecastWeather &&
           forecastWeather.forecast.forecastday.map((state) => (
             <Card
@@ -38,8 +40,10 @@ const Home = () => {
 };
 
 const HomeStyle = styled(motion.div)`
+  min-height: 80vh;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-gap: 3rem 3rem;
 `;
 
 export default Home;

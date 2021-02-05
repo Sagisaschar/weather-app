@@ -16,11 +16,6 @@ const dataWeather = (state = initState, action) => {
         ...state,
         forecastWeather: action.payload.searched,
       };
-    case "FETCH_HOURS":
-      return {
-        ...state,
-        hoursData: action.payload.hoursData,
-      };
     default:
       return state;
   }

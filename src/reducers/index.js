@@ -1,10 +1,10 @@
 import dataWeather from "./weatherReducer";
-// import search from "./searchReducer";
+import dataHours from "./hoursReducer";
 import { combineReducers } from "redux";
 
 const rootReducers = combineReducers({
   forecastWeather: dataWeather,
-  // searchWeather: search,
+  dataHours: dataHours,
 });
 
 export default rootReducers;

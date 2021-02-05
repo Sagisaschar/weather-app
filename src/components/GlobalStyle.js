@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
 *{
-    margin: 0;
+    margin: 0rem 0.5rem;
     padding: 0;
     box-sizing: border-box;
 }
@@ -18,7 +18,6 @@ h1{
     color: #333;
 }
 h2{
-
     padding: 1rem 5rem;
     margin: 4rem 0rem;
     color: black;
@@ -27,6 +26,10 @@ h2{
 p{
     color: white;
 }
+a{
+    text-decoration: none;
+}
+
 `;
 
 export default GlobalStyles;

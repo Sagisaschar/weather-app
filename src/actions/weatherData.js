@@ -2,7 +2,9 @@ import axios from "axios";
 import { forecastWeather, searchedWeather } from "../api";
 
 export const weatherData = () => async (dispatch) => {
-  const results = await axios.get(`${forecastWeather()}Barcelona&days=3`);
+  const results = await axios.get(`${forecastWeather()}Barcelona&days=3`, {
+    timeout: 3000,
+  });
 
   dispatch({
     type: "FETCH_DATA",
@@ -13,23 +15,14 @@ export const weatherData = () => async (dispatch) => {
 };
 
 export const searchedData = (input_searched) => async (dispatch) => {
-  const results = await axios.get(searchedWeather(input_searched));
+  const results = await axios.get(searchedWeather(input_searched), {
+    timeout: 3000,
+  });
 
   dispatch({
     type: "FETCH_SEARCHED",
     payload: {
       searched: results.data,
-    },
-  });
-};
-
-export const getHoursData = (hours) => async (dispatch) => {
-  // const results = await axios.get(searchedWeather(input_searched));
-  // console.log(hours);
-  dispatch({
-    type: "FETCH_HOURS",
-    payload: {
-      hoursData: hours,
     },
   });
 };
