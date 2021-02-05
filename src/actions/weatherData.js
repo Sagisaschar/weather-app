@@ -2,9 +2,7 @@ import axios from "axios";
 import { forecastWeather, searchedWeather } from "../api";
 
 export const weatherData = () => async (dispatch) => {
-  const results = await axios.get(`${forecastWeather()}Barcelona&days=3`, {
-    timeout: 3000,
-  });
+  const results = await axios.get(`${forecastWeather()}Barcelona&days=3`);
 
   dispatch({
     type: "FETCH_DATA",
