@@ -12,16 +12,22 @@ const DetailsHours = () => {
   return (
     <CardShadow>
       <Detail>
-        <h3>{dataHours && dataHours[0].time.slice(0, 10)}</h3>
-        {dataHours &&
-          dataHours.map((state) => (
-            <div>
-              <h3 key={state.text}>{state.time.slice(10)}</h3>
-              <p>{Math.floor(state.temp_c)} &#8451;</p>
-              <p>{state.condition.text}</p>
-              <img src={state.condition.icon} alt={state.condition.text} />
-            </div>
-          ))}
+        <div className="dayHours">
+          <div className="day">
+            <h3>{dataHours && dataHours[0].time.slice(0, 10)}</h3>
+          </div>
+          <div className="info">
+            {dataHours &&
+              dataHours.map((state) => (
+                <div>
+                  <h3 key={state.text}>{state.time.slice(10)}</h3>
+                  <p>{Math.floor(state.temp_c)} &#8451;</p>
+                  <p>{state.condition.text}</p>
+                  <img src={state.condition.icon} alt={state.condition.text} />
+                </div>
+              ))}
+          </div>
+        </div>
       </Detail>
     </CardShadow>
   );
