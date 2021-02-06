@@ -90,7 +90,7 @@ const CardShadow = styled(motion.div)`
 `;
 
 const Detail = styled(motion.div)`
-  width: 80%;
+  width: 30%;
   border-radius: 1rem;
   padding: 2rem 20rem;
   background: white;
