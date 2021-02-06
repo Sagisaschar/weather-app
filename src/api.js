@@ -1,4 +1,4 @@
-const BASE_URL = "http://api.weatherapi.com/v1/";
+const BASE_URL = "https://api.weatherapi.com/v1/";
 
 const forecast =
   BASE_URL + `forecast.json?key=${process.env.REACT_APP_WEATHER_API}&q=`;
