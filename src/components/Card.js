@@ -7,7 +7,9 @@ import { motion } from "framer-motion";
 import { getHoursData } from "../actions/hoursData";
 
 // Import State
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import { Link } from "react-router-dom";
 
 const Card = ({ date, min, max, icon, hours }) => {
   const weekday = [
@@ -22,21 +24,22 @@ const Card = ({ date, min, max, icon, hours }) => {
   const d = new Date(date);
   const day = weekday[d.getDay()];
 
-  const { dataHours } = useSelector((state) => state.dataHours);
-
   const dispatch = useDispatch();
 
   const dayWeatherHandler = () => {
+    document.body.style.overflow = "hidden";
     dispatch(getHoursData(hours));
   };
 
   return (
     <StyledCard onClick={dayWeatherHandler}>
-      <h3>{day}</h3>
-      <h4>{date} </h4>
-      <p>Min temp: {Math.floor(min)} &#8451;</p>
-      <p>Max temp: {Math.floor(max)} &#8451;</p>
-      <img src={icon} alt="icon" />
+      <Link to={`/hours/${day}`}>
+        <h3>{day}</h3>
+        <h4>{date} </h4>
+        <p>Min temp: {Math.floor(min)} &#8451;</p>
+        <p>Max temp: {Math.floor(max)} &#8451;</p>
+        <img src={icon} alt="icon" />
+      </Link>
     </StyledCard>
   );
 };
@@ -69,7 +72,7 @@ const StyledCard = styled(motion.div)`
     width: 60%;
   }
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.03);
   }
 `;
 

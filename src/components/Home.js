@@ -12,29 +12,41 @@ import { useSelector } from "react-redux";
 // Import Styled
 import styled from "styled-components";
 
+import { useLocation } from "react-router-dom";
+
 const Home = () => {
-  const { forecastWeather } = useSelector((state) => state.forecastWeather);
+  const location = useLocation();
+  const pathId = location.pathname.split("/")[2];
+
+  const { forecastWeather, isLoading } = useSelector(
+    (state) => state.forecastWeather
+  );
+
   return (
     <>
-      <h2>
-        Weather in {forecastWeather ? forecastWeather.location.name : ""}
-        {", "}
-        {forecastWeather ? forecastWeather.location.country : ""}
-      </h2>
-      <HomeStyle>
-        <DetailsHours />
-        {forecastWeather &&
-          forecastWeather.forecast.forecastday.map((state) => (
-            <Card
-              key={state.date_epoch}
-              date={state.date}
-              min={state.day.mintemp_c}
-              max={state.day.maxtemp_c}
-              hours={state.hour}
-              icon={forecastWeather.current.condition.icon}
-            />
-          ))}
-      </HomeStyle>
+      {!isLoading && (
+        <>
+          <h2>
+            Weather in {forecastWeather ? forecastWeather.location.name : ""}
+            {", "}
+            {forecastWeather ? forecastWeather.location.country : ""}
+          </h2>
+          <HomeStyle>
+            {pathId && <DetailsHours />}
+            {forecastWeather &&
+              forecastWeather.forecast.forecastday.map((state) => (
+                <Card
+                  key={state.date_epoch}
+                  date={state.date}
+                  min={state.day.mintemp_c}
+                  max={state.day.maxtemp_c}
+                  hours={state.hour}
+                  icon={forecastWeather.current.condition.icon}
+                />
+              ))}
+          </HomeStyle>
+        </>
+      )}
     </>
   );
 };

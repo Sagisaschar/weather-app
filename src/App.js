@@ -10,6 +10,8 @@ import Nav from "./components/Nav";
 // Import Style
 import GlobalStyles from "./components/GlobalStyle";
 
+import { Route } from "react-router-dom";
+
 function App() {
   const dispatch = useDispatch();
 
@@ -21,7 +23,9 @@ function App() {
     <>
       <GlobalStyles />
       <Nav />
-      <Home />
+      <Route path={["/hours/day", "/"]}>
+        <Home />
+      </Route>
     </>
   );
 }

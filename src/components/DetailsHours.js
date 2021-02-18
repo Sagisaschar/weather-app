@@ -5,38 +5,75 @@ import { motion } from "framer-motion";
 
 import { useSelector } from "react-redux";
 
+import { Link } from "react-router-dom";
+
+import { useHistory } from "react-router-dom";
+
 const DetailsHours = () => {
+  const history = useHistory();
+
+  const exitDetails = (e) => {
+    console.log(e);
+    const element = e.target;
+    if (element.classList.contains("shadow")) {
+      document.body.style.overflow = "auto";
+      history.push("/");
+    }
+  };
   // Data
   const { dataHours } = useSelector((state) => state.dataHours);
-  console.log(dataHours);
+
+  const { isLoading } = useSelector((state) => state.forecastWeather);
+  // console.log(dataHours);
   return (
-    <CardShadow>
-      <Detail>
-        <div className="dayHours">
-          <div className="day">
-            <h3>{dataHours && dataHours[0].time.slice(0, 10)}</h3>
-          </div>
-          <div className="info">
-            {dataHours &&
-              dataHours.map((state) => (
-                <div>
-                  <h3 key={state.text}>{state.time.slice(10)}</h3>
-                  <p>{Math.floor(state.temp_c)} &#8451;</p>
-                  <p>{state.condition.text}</p>
-                  <img src={state.condition.icon} alt={state.condition.text} />
-                </div>
-              ))}
-          </div>
-        </div>
-      </Detail>
-    </CardShadow>
+    <>
+      {!isLoading && (
+        <CardShadow className="shadow" onClick={exitDetails}>
+          <Detail>
+            <Link to="/">
+              <Bibi className="shadow" onClick={exitDetails}>
+                X
+              </Bibi>
+            </Link>
+            <Day>
+              <h3>{dataHours && dataHours[0].time.slice(0, 10)}</h3>
+            </Day>
+            <Stats>
+              <Info>
+                {dataHours &&
+                  dataHours.map((state) => (
+                    <Condition key={state.time_epoch}>
+                      <h3 key={state.text}>{state.time.slice(10)}</h3>
+                      <p>{Math.floor(state.temp_c)} &#8451;</p>
+                      <p>{state.condition.text}</p>
+                      <img
+                        src={state.condition.icon}
+                        alt={state.condition.text}
+                      />
+                    </Condition>
+                  ))}
+              </Info>
+            </Stats>
+          </Detail>
+        </CardShadow>
+      )}
+    </>
   );
 };
 
+const Bibi = styled(motion.div)`
+  background: black;
+  color: white;
+  width: 25px;
+  height: 20px;
+  position: fixed;
+  top: 10;
+  left: 200px;
+  border-radius: 50%;
+  align-content: center;
+`;
+
 const CardShadow = styled(motion.div)`
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 1rem 1rem; */
   position: fixed;
   overflow-y: scroll;
   margin: 0;
@@ -44,36 +81,8 @@ const CardShadow = styled(motion.div)`
   top: 0;
   left: 0;
   min-height: 100vh;
-  /* border-radius: 15px; */
   background: rgba(0, 0, 0, 0.5);
-  /* color: white;
-  padding: 2rem;
-  padding-top: 5rem;
-  border: 3px solid #9a9a9a; */
-  /* div {
-    display: flex;
-    background: #6d6d6d;
-    width: 100%;
-    padding: 3px;
-    font-size: 0.7rem;
-    text-align: center;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0;
-    img {
-      width: 30px;
-      height: 30px;
-    }
-  }
-  h2 {
-    width: 100%;
-    position: absolute;
-    color: white;
-    font-size: 2rem;
-    padding: 2rem;
-    margin: 0;
-    text-align: center;
-  } */
+  z-index: 2;
   &::-webkit-scrollbar {
     width: 0.5rem;
   }
@@ -91,15 +100,46 @@ const CardShadow = styled(motion.div)`
 
 const Detail = styled(motion.div)`
   width: 80%;
+  height: 90%;
+  top: 5%;
   border-radius: 1rem;
-  padding: 2rem 20rem;
+  padding: 2rem 5rem;
   background: white;
   position: absolute;
   left: 10%;
   color: black;
+  text-align: center;
+  margin: 0 auto;
+  overflow-y: scroll;
   p {
     color: black;
   }
+`;
+
+const Stats = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Info = styled(motion.div)`
+  width: 100%;
+  text-align: center;
+`;
+
+const Condition = styled(motion.div)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  p {
+    width: 10%;
+  }
+`;
+
+const Day = styled(motion.div)`
+  width: 80%;
+  margin: 1rem auto;
+  font-size: 1.7rem;
 `;
 
 export default DetailsHours;

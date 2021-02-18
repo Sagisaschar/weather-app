@@ -73,7 +73,7 @@ const StyledNav = styled.nav`
 const Logo = styled.nav`
   display: flex;
   img {
-    width: 10%;
+    width: 15%;
   }
 `;
 
